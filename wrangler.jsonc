@@ -1,0 +1,9 @@
+{
+  "name": "taxi2-site",
+  "main": "worker.js",
+  "compatibility_date": "2026-10-01",
+  "routes": [
+    { "pattern": "taxi2.bg", "custom_domain": true },
+    { "pattern": "www.taxi2.bg", "custom_domain": true }
+  ]
+}
