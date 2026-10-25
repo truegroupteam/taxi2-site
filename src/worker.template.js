@@ -128,6 +128,13 @@ async function contact(request, env) {
   return json(200, { ok: true });
 }
 
+// Short entry points: taxi2.bg/admin, /app, /driver lead to the platform.
+const PORTALS = {
+  '/admin': 'https://admin.taxi2.bg/',
+  '/app': 'https://app.taxi2.bg/',
+  '/driver': 'https://driver.taxi2.bg/',
+};
+
 export default {
   async fetch(request, env, ctx) {
     const url = new URL(request.url);
@@ -135,6 +142,8 @@ export default {
       url.hostname = 'taxi2.bg';
       return Response.redirect(url.toString(), 301);
     }
+    const portal = PORTALS[url.pathname.replace(/\/+$/, '')];
+    if (portal) return Response.redirect(portal, 302);
     if (url.pathname === '/api/apply' || url.pathname === '/api/contact') {
       if (request.method !== 'POST') return json(405, { error: 'Method Not Allowed' });
       return url.pathname === '/api/apply' ? apply(request, env, ctx) : contact(request, env);
