@@ -132,7 +132,7 @@ async function contact(request, env) {
 const PORTALS = {
   '/admin': 'https://admin.taxi2.bg/',
   '/app': 'https://app.taxi2.bg/',
-  '/driver': 'https://driver.taxi2.bg/',
+  '/driver': 'https://app.taxi2.bg/driver',
 };
 
 export default {
