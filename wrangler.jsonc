@@ -1,9 +1,16 @@
 {
+  // Usually deployed by pasting dist/worker.js into the Cloudflare Worker editor (see README).
+  // `npx wrangler deploy` also works: it runs build.py first.
   "name": "taxi2-site",
-  "main": "worker.js",
+  "main": "dist/worker.js",
   "compatibility_date": "2026-10-01",
+  "build": { "command": "python3 build.py" },
   "routes": [
     { "pattern": "taxi2.bg", "custom_domain": true },
     { "pattern": "www.taxi2.bg", "custom_domain": true }
-  ]
+  ],
+  // E-mails from the site forms (Cloudflare Email Routing).
+  "send_email": [{ "name": "APPLY_MAIL" }],
+  // APPLY_TO / API_ORIGIN are set in the Cloudflare dashboard; keep them on deploy.
+  "keep_vars": true
 }

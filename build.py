@@ -1,96 +1,90 @@
 #!/usr/bin/env python3
-"""Builds src/worker.js — one-file Cloudflare Worker with the whole site embedded."""
-import base64, json, os, datetime
-ROOT = os.path.dirname(os.path.abspath(__file__))
-PUB = os.path.join(ROOT, 'public')
-FILES = {
-    '/': ('index.html', 'text/html; charset=utf-8'),
-    '/favicon.ico': ('favicon.ico', 'image/x-icon'),
-    '/apple-touch-icon.png': ('apple-touch-icon.png', 'image/png'),
-    '/img/two-taxi-logo.webp': ('img/two-taxi-logo.webp', 'image/webp'),
-    '/img/icon-192.png': ('img/icon-192.png', 'image/png'),
-    '/img/og.jpg': ('img/og.jpg', 'image/jpeg'),
-    '/robots.txt': ('robots.txt', 'text/plain; charset=utf-8'),
-    '/sitemap.xml': ('sitemap.xml', 'application/xml; charset=utf-8'),
+"""Builds dist/worker.js: the whole taxi2.bg site packed into one Cloudflare Worker.
+
+  python3 build.py
+
+Pages live in public/pages/ (index.html -> "/", kontakti.html -> "/kontakti").
+Every other file in public/ is served at its own path. Links like
+"/site.css?v=0123456789" get the current file hash, so browsers pick up changes.
+"""
+import base64
+import datetime
+import hashlib
+import json
+import re
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parent
+PUBLIC = ROOT / 'public'
+TEMPLATE = ROOT / 'src' / 'worker.template.js'
+OUT = ROOT / 'dist' / 'worker.js'
+
+TYPES = {
+    '.html': 'text/html; charset=utf-8',
+    '.css': 'text/css; charset=utf-8',
+    '.js': 'application/javascript; charset=utf-8',
+    '.txt': 'text/plain; charset=utf-8',
+    '.xml': 'application/xml; charset=utf-8',
+    '.json': 'application/json; charset=utf-8',
+    '.svg': 'image/svg+xml',
+    '.ico': 'image/x-icon',
+    '.png': 'image/png',
+    '.jpg': 'image/jpeg',
+    '.jpeg': 'image/jpeg',
+    '.webp': 'image/webp',
 }
-TEXT = ('text/', 'application/xml', 'application/json')
-out = ['// two Taxi — taxi2.bg. Single-file Worker: the whole site is inside this file.',
-       '// Built by build.py on ' + datetime.date.today().isoformat() + '. Edit public/ and rebuild.',
-       'const FILES = {']
-for path, (rel, ctype) in FILES.items():
-    data = open(os.path.join(PUB, rel), 'rb').read()
-    if ctype.startswith(TEXT):
-        out.append(f'  {json.dumps(path)}: {{ type: {json.dumps(ctype)}, text: {json.dumps(data.decode("utf-8"), ensure_ascii=False)} }},')
-    else:
-        out.append(f'  {json.dumps(path)}: {{ type: {json.dumps(ctype)}, b64: {json.dumps(base64.b64encode(data).decode())} }},')
-out.append('};')
-out.append(r'''
-// Where driver applications are sent (the two Taxi server). Override with the API_ORIGIN variable.
-const DEFAULT_API = 'https://116-203-244-23.sslip.io';
+TEXT = ('text/', 'application/javascript', 'application/xml', 'application/json')
 
-const SECURITY = {
-  'X-Content-Type-Options': 'nosniff',
-  'Referrer-Policy': 'strict-origin-when-cross-origin',
-  'X-Frame-Options': 'DENY',
-  'Permissions-Policy': 'geolocation=(), camera=(), microphone=()',
-  'Strict-Transport-Security': 'max-age=31536000; includeSubDomains'
-};
+# Served in this order; anything not listed follows, sorted.
+ORDER = ['/site.css', '/site.js', '/favicon.ico', '/apple-touch-icon.png',
+         '/img/two-taxi-logo.webp', '/img/two-mark.webp', '/img/icon-192.png',
+         '/img/og.jpg', '/robots.txt', '/sitemap.xml']
 
-function decode(b64) {
-  const bin = atob(b64);
-  const out = new Uint8Array(bin.length);
-  for (let i = 0; i < bin.length; i++) out[i] = bin.charCodeAt(i);
-  return out;
-}
 
-function json(status, data) {
-  return new Response(JSON.stringify(data), { status, headers: { 'Content-Type': 'application/json; charset=utf-8', 'Cache-Control': 'no-store', ...SECURITY } });
-}
+def short_hash(path):
+    return hashlib.sha256(path.read_bytes()).hexdigest()[:10]
 
-async function apply(request, env) {
-  const body = await request.text();
-  if (body.length > 4000) return json(413, { error: 'Твърде дълго съобщение.' });
-  const api = (env && env.API_ORIGIN) || DEFAULT_API;
-  try {
-    const r = await fetch(api + '/api/public/apply', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json', 'X-Forwarded-For': request.headers.get('CF-Connecting-IP') || '' },
-      body
-    });
-    const text = await r.text();
-    return new Response(text, { status: r.status, headers: { 'Content-Type': 'application/json; charset=utf-8', 'Cache-Control': 'no-store', ...SECURITY } });
-  } catch (e) {
-    return json(502, { error: 'В момента не можем да приемем заявката. Опитай пак след малко.' });
-  }
-}
 
-export default {
-  async fetch(request, env) {
-    const url = new URL(request.url);
-    if (url.hostname === 'www.taxi2.bg') {
-      url.hostname = 'taxi2.bg';
-      return Response.redirect(url.toString(), 301);
-    }
-    if (url.pathname === '/api/apply') {
-      if (request.method !== 'POST') return json(405, { error: 'Method Not Allowed' });
-      return apply(request, env);
-    }
-    if (request.method !== 'GET' && request.method !== 'HEAD') {
-      return new Response('Method Not Allowed', { status: 405, headers: { Allow: 'GET, HEAD' } });
-    }
-    let path = url.pathname;
-    if (path === '/index.html') path = '/';
-    const file = FILES[path];
-    if (!file) {
-      return new Response(null, { status: 302, headers: { Location: '/' } });
-    }
-    const headers = new Headers(SECURITY);
-    headers.set('Content-Type', file.type);
-    headers.set('Cache-Control', path === '/' ? 'public, max-age=300' : 'public, max-age=86400');
-    const body = file.b64 ? decode(file.b64) : file.text;
-    return new Response(request.method === 'HEAD' ? null : body, { headers });
-  }
-};
-''')
-open(os.path.join(ROOT, 'src', 'worker.js'), 'w').write('\n'.join(out))
-print('worker.js', os.path.getsize(os.path.join(ROOT, 'src', 'worker.js')), 'bytes')
+def collect():
+    pages = sorted((PUBLIC / 'pages').glob('*.html'), key=lambda p: (p.stem != 'index', p.stem))
+    files = [('/' if p.stem == 'index' else '/' + p.stem, p) for p in pages]
+    assets = {'/' + p.relative_to(PUBLIC).as_posix(): p
+              for p in PUBLIC.rglob('*') if p.is_file() and 'pages' not in p.relative_to(PUBLIC).parts}
+    for url in ORDER + sorted(set(assets) - set(ORDER)):
+        if url in assets:
+            files.append((url, assets[url]))
+    return files, assets
+
+
+def stamp_versions(html, assets):
+    def repl(m):
+        p = assets.get(m.group(1))
+        return m.group(1) + '?v=' + (short_hash(p) if p else m.group(2))
+    return re.sub(r'(/[\w./-]+)\?v=([0-9a-f]{10})\b', repl, html)
+
+
+def main():
+    files, assets = collect()
+    entries = []
+    for url, path in files:
+        typ = TYPES.get(path.suffix.lower())
+        if not typ:
+            raise SystemExit('Unknown file type: ' + str(path))
+        if typ.startswith(TEXT):
+            text = path.read_text(encoding='utf-8')
+            if typ.startswith('text/html'):
+                text = stamp_versions(text, assets)
+            value = 'text: ' + json.dumps(text, ensure_ascii=False)
+        else:
+            value = 'b64: ' + json.dumps(base64.b64encode(path.read_bytes()).decode())
+        entries.append('  %s: { type: %s, %s }' % (json.dumps(url), json.dumps(typ), value))
+    out = TEMPLATE.read_text(encoding='utf-8')
+    out = out.replace('{{DATE}}', datetime.date.today().isoformat())
+    out = out.replace('{{FILES}}', ''.join(e + ',\n' for e in entries).rstrip('\n'))
+    OUT.parent.mkdir(exist_ok=True)
+    OUT.write_text(out, encoding='utf-8')
+    print('Built %s (%d files, %d KB)' % (OUT.relative_to(ROOT), len(entries), OUT.stat().st_size // 1024))
+
+
+if __name__ == '__main__':
+    main()
