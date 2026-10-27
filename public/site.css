@@ -63,23 +63,42 @@ a{color:inherit}
 .hero .actions .tlink{color:#fff;border-color:var(--cream)}
 .note{margin-top:14px;font-size:14px;color:rgba(255,255,255,.75)}
 
-/* Phone mock (the real driver app screen) */
-.stage{position:relative;margin:44px auto 0;width:min(260px,66vw);aspect-ratio:9/19.5}
-.iphone{position:relative;width:100%;height:100%;border-radius:17%/7.8%;background:#0E0F14;padding:3.4%;box-shadow:0 0 0 2px #4d4466,0 30px 60px rgba(20,16,40,.35)}
-.screen{position:relative;width:100%;height:100%;border-radius:14%/6.6%;overflow:hidden;background:#1A1C21;color:#F2F3F5;text-align:left;display:flex;flex-direction:column;padding:16% 7% 7%}
-.island{position:absolute;top:2.2%;left:50%;transform:translateX(-50%);width:32%;height:3.9%;border-radius:999px;background:#000}
-.screen .tag{display:flex;justify-content:space-between;align-items:center;font-size:10px;font-weight:700;letter-spacing:.08em;color:#9BA1AC}
-.screen .secs{width:30px;height:30px;border-radius:50%;border:2.5px solid #F2F3F5;display:grid;place-items:center;font-size:12px;color:#F2F3F5}
-.screen .tbar{height:4px;border-radius:2px;background:#2C3038;margin:10px 0 12px;overflow:hidden}
-.screen .tbar i{display:block;height:100%;width:72%;background:#F2F3F5}
-.screen .eta{font-size:22px;font-weight:800;letter-spacing:-.03em}
-.screen .k{font-size:10px;color:#9BA1AC}
-.screen .ad{border-top:1px solid #2C3038;margin-top:10px;padding-top:9px}
-.screen .ad b{display:block;font-size:13px}
-.screen .ad span{font-size:10px;color:#9BA1AC}
-.screen .grow{flex:1}
-.screen .acc{height:58px;border-radius:14px;background:#1F9D55;color:#fff;display:grid;place-items:center;font-weight:800;font-size:18px;letter-spacing:.02em}
-.screen .dec{margin-top:7px;height:34px;border-radius:11px;border:2px solid #F2F3F5;display:grid;place-items:center;font-weight:800;font-size:12px}
+/* Phone and tablet frames with real screenshots of the apps */
+.stage{position:relative;margin:44px auto 0;width:min(260px,66vw);aspect-ratio:600/1298}
+.iphone{position:relative;width:100%;border-radius:15%/7%;background:#0E0F14;padding:3.4%;box-shadow:0 0 0 2px #4d4466,0 30px 60px rgba(20,16,40,.35)}
+.screen{position:relative;width:100%;aspect-ratio:600/1298;border-radius:12%/5.6%;overflow:hidden;background:#fff}
+.screen img,.tab-screen img{display:block;width:100%;height:100%;object-fit:cover}
+.tablet{position:relative;width:100%;border-radius:4.5%/7%;background:#0E0F14;padding:2.4%;box-shadow:0 0 0 2px #4d4466,0 24px 50px rgba(20,16,40,.22)}
+.tab-screen{width:100%;aspect-ratio:16/10;border-radius:2%/3.2%;overflow:hidden;background:#fff}
+
+/* Screens of the app with captions */
+.shots{list-style:none;margin:0;padding:0;display:grid;gap:26px}
+.shots li{display:grid;grid-template-columns:minmax(0,min(132px,40%)) minmax(0,1fr);gap:18px;align-items:center}
+.shots .iphone{box-shadow:0 0 0 1.5px #4d4466,0 14px 30px rgba(20,16,40,.18)}
+.shots b{display:block;font-size:19px;color:var(--navy);line-height:1.25}
+.shots span{display:block;margin-top:4px;color:var(--gray);overflow-wrap:anywhere}
+.shots .n{display:inline-grid;place-items:center;width:30px;height:30px;border-radius:50%;background:var(--purple);color:#fff;font-weight:800;font-size:15px;margin-bottom:8px}
+.dapp{display:grid;gap:30px}
+.dapp .cap{margin:12px 0 0;color:var(--gray);font-size:15px;text-align:center}
+.webapp{margin:22px 0 0;padding:14px 16px;border-radius:12px;background:#EFECF6;color:var(--navy);font-size:16px}
+.webapp b{font-weight:700}
+
+/* Passenger tariff (as on the sticker in the car) */
+.tariff{border:1.5px solid var(--navy);border-radius:12px;overflow:hidden;background:#fff}
+.tariff table{width:100%;table-layout:fixed;border-collapse:collapse;font-variant-numeric:tabular-nums}
+.tariff col.l{width:44%}
+.tariff th,.tariff td{padding:12px 10px;text-align:right;border-top:1px solid var(--line);white-space:nowrap}
+.tariff th:first-child,.tariff td:first-child{text-align:left;white-space:normal}
+.tariff thead th{white-space:normal;border-top:0;background:var(--navy);color:#fff;font-size:14px;font-weight:700}
+.tariff thead th small{display:block;font-weight:500;color:rgba(255,255,255,.7);font-size:12px}
+.tariff td{font-size:16px}
+.tariff td b{font-size:18px;color:var(--navy)}
+@media (max-width:360px){.tariff th,.tariff td{padding:10px 7px}.tariff td,.tariff td b{font-size:15px}}
+.ex{display:grid;gap:0;border-top:1px solid var(--line)}
+.ex div{display:flex;justify-content:space-between;align-items:baseline;gap:12px;padding:14px 0;border-bottom:1px solid var(--line)}
+.ex span{color:var(--gray)}
+.ex b{color:var(--navy);font-size:19px;white-space:nowrap;font-variant-numeric:tabular-nums}
+.ex h3{margin:0 0 8px;font-size:21px;color:var(--navy)}
 
 /* Inner page header */
 .phero{background:var(--purple);color:#fff;padding:40px 18px 46px}
@@ -233,6 +252,13 @@ fieldset{border:0;margin:0 0 16px;padding:0}
   .hero{padding:64px 18px 72px}
   .hero-in{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:clamp(28px,6vw,90px);align-items:center}
   .stage{margin:0;width:clamp(220px,25vw,270px)}
+  .shots{grid-template-columns:repeat(3,minmax(0,1fr));gap:32px}
+  .shots li{grid-template-columns:minmax(0,1fr);gap:16px;align-items:start}
+  .shots .iphone{max-width:230px;margin:0 auto}
+  .dapp{grid-template-columns:minmax(0,1.7fr) minmax(0,1fr);align-items:center;gap:40px}
+  .dapp .shots{grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}
+  .dapp .shots b{font-size:17px}
+  .dapp .shots span{font-size:15px}
   .band{grid-template-columns:1fr auto;padding:32px}
 }
 @media (min-width:900px){
