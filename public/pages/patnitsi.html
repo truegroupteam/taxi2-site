@@ -40,26 +40,77 @@
 <nav class="drawer" id="drawer" aria-label="Меню"><a href="/">Шофьори<small>Без ефир до 2027</small></a><a href="/patnitsi" aria-current="page">Пътници<small>Приложението идва скоро</small></a><a href="/vaprosi">Въпроси<small></small></a><a href="/kontakti">Контакти<small>office@taxi2.bg</small></a><a class="btn navy block" href="/#apply">Кандидатствай</a></nav>
 
 <main id="main">
-<section class="phero" aria-labelledby="t1">
-    <div class="wrap">
-      <span class="crumb">За пътници</span>
-      <h1 id="t1">Такси в Пловдив от телефона</h1>
-      <p>Приложението за пътници на Two тръгва скоро. Остави телефон и ще ти пишем, когато е готово.</p>
-      <p style="margin-top:22px"><a class="btn white" href="#notify">Искам да ми пишете</a></p>
+<section class="hero" aria-labelledby="t1">
+   <div class="hero-in">
+    <div>
+      <p class="where">Пловдив · за пътници</p>
+      <h1 id="t1">Такси от телефона. <span>Без обаждане.</span></h1>
+      <p class="sub">Отваряш приложението, избираш накъде и натискаш „Поръчай“. Виждаш цената преди поръчката и колата на картата.</p>
+      <ul class="ticks"><li>Цена предварително</li><li>Колата на картата</li><li>В брой или с карта</li></ul>
+      <div class="actions">
+        <a class="btn white" href="#notify">Искам да ми пишете</a>
+        <a class="tlink" href="#tarifa">Тарифа</a>
+      </div>
+      <p class="note">Приложението тръгва скоро в Пловдив.</p>
     </div>
+    <div class="stage">
+      <div class="iphone"><div class="screen"><img src="/img/app/passenger-home.webp" width="600" height="1298" alt="Приложението на Two за пътници: карта на Пловдив, От къде и За къде, бутон Поръчай"></div></div>
+    </div>
+   </div>
   </section>
   <div class="checker" aria-hidden="true"></div>
 
   <section class="block" aria-labelledby="t2">
     <div class="wrap">
-      <div class="head"><h2 id="t2">Какво ще можеш</h2></div>
+      <div class="head"><h2 id="t2">Как поръчваш</h2><p>Три стъпки. Без да обясняваш къде си.</p></div>
+      <ol class="shots">
+        <li><div class="iphone"><div class="screen"><img src="/img/app/passenger-order.webp" width="600" height="1298" alt="Избран адрес и ориентировъчна цена" loading="lazy"></div></div><div><span class="n">1</span><b>Избираш накъде</b><span>Приложението знае къде си. Виждаш разстоянието и ориентировъчната цена.</span></div></li>
+        <li><div class="iphone"><div class="screen"><img src="/img/app/passenger-search.webp" width="600" height="1298" alt="Търсим кола" loading="lazy"></div></div><div><span class="n">2</span><b>Търсим кола</b><span>Поръчката отива при най-близката свободна кола. Без диспечер.</span></div></li>
+        <li><div class="iphone"><div class="screen"><img src="/img/app/passenger-coming.webp" width="600" height="1298" alt="Колата идва: номер, модел, шофьор и време до пристигане" loading="lazy"></div></div><div><span class="n">3</span><b>Колата идва</b><span>Виждаш я на картата, номера, модела и след колко минути пристига.</span></div></li>
+      </ol>
+      <p class="webapp"><b>Не се инсталира от магазин.</b> Отваряш го в браузъра на телефона и, ако искаш, го добавяш на началния екран като иконка.</p>
+    </div>
+  </section>
+
+  <section class="block paper" id="tarifa" aria-labelledby="t5">
+    <div class="wrap">
+      <div class="head"><h2 id="t5">Тарифа</h2><p>Същата като на стикера в колата. Плащаш колкото покаже апаратът.</p></div>
+      <div class="two">
+        <div class="tariff">
+          <table>
+            <colgroup><col class="l"><col><col></colgroup>
+            <thead><tr><th scope="col">Цена</th><th scope="col">Ден<small>06:00–22:00</small></th><th scope="col">Нощ<small>22:00–06:00</small></th></tr></thead>
+            <tbody>
+              <tr><td>1 км в града</td><td><b>0,80 €</b></td><td><b>0,90 €</b></td></tr>
+              <tr><td>Първоначална такса</td><td><b>1,60 €</b></td><td><b>1,80 €</b></td></tr>
+              <tr><td>Повикване</td><td><b>0,50 €</b></td><td><b>0,50 €</b></td></tr>
+              <tr><td>1 минута престой</td><td><b>0,16 €</b></td><td><b>0,16 €</b></td></tr>
+              <tr><td>1 км извън града</td><td><b>0,80 €</b></td><td><b>0,90 €</b></td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="ex">
+          <h3>Примерно колко излиза</h3>
+          <div><span>3 км в града, през деня</span><b>≈ 4,50 €</b></div>
+          <div><span>3 км в града, през нощта</span><b>≈ 5,00 €</b></div>
+          <div><span>6 км в града, през деня</span><b>≈ 6,90 €</b></div>
+          <div><span>6 км в града, през нощта</span><b>≈ 7,70 €</b></div>
+          <p class="fine">Без чакане и задръствания. Цените са с ДДС. Приложението показва ориентировъчната цена преди всяка поръчка.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" aria-labelledby="t3b">
+    <div class="wrap">
+      <div class="head"><h2 id="t3b">Какво още можеш</h2></div>
       <div class="feat">
-        <div><b>Да поръчаш от картата</b><span>Приложението знае къде си. Избираш накъде и натискаш „Поръчай“.</span></div>
-        <div><b>Да видиш цената предварително</b><span>Ориентировъчна цена преди поръчката. Плащаш по апарата.</span></div>
-        <div><b>Да следиш колата</b><span>Виждаш я на картата и колко минути остават до теб.</span></div>
+        <div><b>Да пишеш на шофьора</b><span>Чат в приложението, без да даваш номера си.</span></div>
+        <div><b>Да споделиш пътуването</b><span>Близките ти виждат къде си, докато пътуваш.</span></div>
         <div><b>Да платиш както ти е удобно</b><span>В брой или с карта на шофьора.</span></div>
-        <div><b>Да пътуваш в чиста кола</b><span>Колите на Two се поддържат чисти.</span></div>
-        <div><b>Да видиш старите си курсове</b><span>Адреси и суми на едно място.</span></div>
+        <div><b>Да запазиш любими адреси</b><span>Вкъщи, работа и местата, където ходиш често.</span></div>
+        <div><b>Да видиш старите си курсове</b><span>Адреси, суми и шофьор на едно място.</span></div>
+        <div><b>На български или английски</b><span>Приложението следва езика на телефона.</span></div>
       </div>
     </div>
   </section>
@@ -93,6 +144,18 @@
     </div>
   </section>
 
+  <section class="block faq" aria-labelledby="t6">
+    <div class="wrap">
+      <div class="head"><h2 id="t6">Често питат</h2></div>
+      <div class="list">
+        <details><summary>Трябва ли да сваля приложение?</summary><p>Не. Приложението се отваря в браузъра на телефона. Можеш да го добавиш на началния екран и после се отваря като всяко друго приложение.</p></details>
+        <details><summary>Колко струва курсът?</summary><p>По тарифата горе. Плащаш колкото покаже апаратът в колата. Преди поръчката приложението ти показва ориентировъчна цена.</p></details>
+        <details><summary>Мога ли да платя с карта?</summary><p>Да, на шофьора в колата. Може и в брой.</p></details>
+        <details><summary>Кога тръгва?</summary><p>Скоро в Пловдив. Остави телефон или имейл и ще ти пишем веднъж, когато е готово.</p></details>
+      </div>
+    </div>
+  </section>
+
   <section class="block" aria-labelledby="t4">
     <div class="wrap">
       <div class="band">
@@ -117,7 +180,7 @@
   <div class="legal"><span>© 2026 Two Taxi. Всички права запазени.</span><span>Пловдив</span></div>
 </footer>
 
-<div class="sticky" id="sticky"><a class="btn navy" href="/#apply">Кандидатствай</a></div>
+<div class="sticky" id="sticky"><a class="btn navy" href="#notify">Искам да ми пишете</a></div>
 <script src="/site.js?v=3b3ce80104" defer></script>
 </body>
 </html>
