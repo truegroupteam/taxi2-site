@@ -40,10 +40,10 @@ const cleanText = (v, n) => String(v || '').replace(/\r/g, '').slice(0, n).trim(
 
 // Sends a plain-text e-mail through the APPLY_MAIL "Send email" binding.
 // Without the binding nothing is sent (the driver application still reaches the admin app).
-async function sendMail(env, subject, lines, replyTo) {
+async function sendMail(env, subject, lines, replyTo, toAddr) {
   if (!env || !env.APPLY_MAIL) return false;
   const from = 'noreply@taxi2.bg';
-  const to = env.APPLY_TO || 'damyanov.true@gmail.com';
+  const to = toAddr || env.APPLY_TO || 'damyanov.true@gmail.com';
   const head = [
     'From: Two Taxi <' + from + '>',
     'To: ' + to,
@@ -117,6 +117,7 @@ async function contact(request, env) {
   const name = clean(d.name, 60), phone = clean(d.phone, 30), email = clean(d.email, 80);
   if (phone.replace(/\D/g, '').length < 9 && !/@/.test(email)) return json(400, { error: 'Остави телефон или имейл.' });
   if (!d.consent) return json(400, { error: 'Отбележи съгласието.' });
+  if (d.kind === 'developer') return developer(env, name, email, cleanText(d.message, 1500));
   const waitlist = d.kind === 'waitlist';
   if (!waitlist && cleanText(d.message, 1500).length < 3) return json(400, { error: 'Напиши съобщение.' });
   const who = name || phone || email;
@@ -125,6 +126,17 @@ async function contact(request, env) {
     : ['Ново съобщение от контактната форма на taxi2.bg', '', 'Име: ' + (name || '-'), 'Телефон: ' + (phone || '-'), 'Имейл: ' + (email || '-'), '', cleanText(d.message, 1500), '', stamp()];
   const ok = await sendMail(env, (waitlist ? 'Пътник за приложението: ' : 'Съобщение от сайта: ') + who, lines, email);
   if (!ok) return json(502, { error: 'В момента не можем да изпратим съобщението. Пиши ни на office@taxi2.bg.' });
+  return json(200, { ok: true });
+}
+
+// „За разработчика“ (taxi2.bg/razrabotchik): only by e-mail, straight to the developer (DEV_TO overrides).
+async function developer(env, name, email, message) {
+  if (!/^[^\s@<>",;]+@[^\s@<>",;]+\.[a-z]{2,}$/i.test(email)) return json(400, { error: 'Въведи имейл, на който да ти отговорим.' });
+  if (message.length < 3) return json(400, { error: 'Напиши съобщение.' });
+  const ok = await sendMail(env, 'Taxi Labs — съобщение от taxi2.bg: ' + (name || email), [
+    'Съобщение до разработчика (Taxi Labs) от taxi2.bg/razrabotchik', '', 'Име: ' + (name || '-'), 'Имейл: ' + email, '', message, '', stamp()
+  ], email, env.DEV_TO || 'damyanov.true@gmail.com');
+  if (!ok) return json(502, { error: 'В момента не можем да изпратим съобщението. Опитай пак след малко.' });
   return json(200, { ok: true });
 }
 

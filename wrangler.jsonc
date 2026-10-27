@@ -11,6 +11,6 @@
   ],
   // E-mails from the site forms (Cloudflare Email Routing).
   "send_email": [{ "name": "APPLY_MAIL" }],
-  // APPLY_TO / API_ORIGIN are set in the Cloudflare dashboard; keep them on deploy.
+  // APPLY_TO / DEV_TO / API_ORIGIN are set in the Cloudflare dashboard; keep them on deploy.
   "keep_vars": true
 }
