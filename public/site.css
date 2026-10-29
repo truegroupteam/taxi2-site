@@ -18,7 +18,7 @@ a{color:inherit}
 .nav{position:sticky;top:0;z-index:40;background:var(--purple);color:#fff}
 .nav-in{max-width:1080px;margin:0 auto;height:72px;padding:0 18px;display:flex;align-items:center;gap:14px}
 .brand{display:flex;align-items:center;text-decoration:none;color:#fff;margin-right:auto}
-.brand .logo{height:58px;width:auto}
+.brand .logo{height:60px;width:auto}
 .menu{display:none;gap:2px;align-items:center}
 .menu a{text-decoration:none;font-weight:700;font-size:15px;color:#fff;padding:9px 18px;border-radius:999px}
 .menu a:hover{background:rgba(255,255,255,.14)}
@@ -246,7 +246,7 @@ fieldset{border:0;margin:0 0 16px;padding:0}
 .sticky.show{transform:none}
 .sticky .btn{width:100%}
 
-@media (max-width:420px){.nav-in{gap:10px}.brand .logo{height:50px}.nav-cta{font-size:14px;padding:9px 13px}}
+@media (max-width:420px){.nav-in{gap:10px}.brand .logo{height:54px}.nav-cta{font-size:14px;padding:9px 13px}}
 @media (max-width:350px){.nav-cta{display:none}}
 @media (min-width:680px){
   .hero{padding:40px 18px 72px}
@@ -266,7 +266,7 @@ fieldset{border:0;margin:0 0 16px;padding:0}
   .burger{display:none}
   .drawer{display:none!important}
   .nav-in{height:92px}
-  .brand .logo{height:72px}
+  .brand .logo{height:78px}
   html{scroll-padding-top:104px}
 }
 @media (min-width:760px){
