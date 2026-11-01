@@ -140,6 +140,25 @@ async function developer(env, name, email, message) {
   return json(200, { ok: true });
 }
 
+// The terms and privacy texts come from the platform (the same texts the apps show), cached for 10 minutes.
+async function legal(url, env, ctx) {
+  const api = (env && env.API_ORIGIN) || DEFAULT_API;
+  const q = url.searchParams.get('for') === 'driver' ? '?for=driver' : '';
+  const cache = caches.default;
+  const key = new Request('https://taxi2.bg/api/legal' + q);
+  const hit = await cache.match(key);
+  if (hit) return hit;
+  try {
+    const r = await fetch(api + '/api/legal' + q);
+    if (!r.ok) throw new Error(String(r.status));
+    const res = new Response(await r.text(), { headers: { 'Content-Type': 'application/json; charset=utf-8', 'Cache-Control': 'public, max-age=600', ...SECURITY } });
+    ctx.waitUntil(cache.put(key, res.clone()));
+    return res;
+  } catch (e) {
+    return json(502, { error: 'Текстът не може да се зареди в момента. Опитай пак след малко или пиши на office@taxi2.bg.' });
+  }
+}
+
 // Short entry points: taxi2.bg/admin, /app, /driver lead to the platform.
 const PORTALS = {
   '/admin': 'https://admin.taxi2.bg/',
@@ -160,6 +179,7 @@ export default {
       if (request.method !== 'POST') return json(405, { error: 'Method Not Allowed' });
       return url.pathname === '/api/apply' ? apply(request, env, ctx) : contact(request, env);
     }
+    if (url.pathname === '/api/legal' && request.method === 'GET') return legal(url, env, ctx);
     if (request.method !== 'GET' && request.method !== 'HEAD') {
       return new Response('Method Not Allowed', { status: 405, headers: { Allow: 'GET, HEAD' } });
     }
