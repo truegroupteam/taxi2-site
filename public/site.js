@@ -24,6 +24,26 @@
   var call=document.getElementById('applyCall'),af=document.getElementById('applyForm');
   if(call&&af){call.addEventListener('click',function(){af.hidden=!af.hidden;call.setAttribute('aria-expanded',!af.hidden);if(!af.hidden&&af.name)af.name.focus()})}
 
+  // Общи условия: the texts come from the platform (/api/legal), the same the apps show
+  document.querySelectorAll('[data-legal]').forEach(function(el){
+    var who=el.getAttribute('data-for'),kind=el.getAttribute('data-legal');
+    function esc(t){return t.replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
+    function link(t){return t.replace(/(https?:\/\/[^\s<)]+[^\s<).,;])/g,'<a class="tlink" href="$1" rel="noopener">$1</a>').replace(/([\w.+-]+@[\w-]+\.[\w.]+\w)/g,'<a class="tlink" href="mailto:$1">$1</a>')}
+    fetch('/api/legal'+(who==='driver'?'?for=driver':'')).then(function(r){return r.json().then(function(j){if(!r.ok)throw new Error(j.error||'');return j})}).then(function(j){
+      var lines=String(j[kind]||'').replace(/\r/g,'').split('\n'),html='',i=0;
+      lines.forEach(function(l){
+        l=l.trim();if(!l)return;
+        if(i===0){i++;return} // the title is the page heading
+        if(i===1&&/^Версия/.test(l)){i++;html+='<p class="muted">'+esc(l)+'</p>';return}
+        i++;
+        if(/^\d+\s+\S/.test(l)&&!/^\d+\.\d/.test(l)&&l.length<90)html+='<h2>'+esc(l)+'</h2>';
+        else if(/^(Приложение|Раздел)\b/.test(l)&&l.length<120)html+='<h2>'+esc(l)+'</h2>';
+        else html+='<p>'+link(esc(l))+'</p>';
+      });
+      el.innerHTML=html||'<p class="muted">Текстът се подготвя.</p>';
+    }).catch(function(e){el.innerHTML='<p class="muted">'+esc(e.message||'Текстът не може да се зареди в момента. Опитай пак след малко или пиши на office@taxi2.bg.')+'</p>'});
+  });
+
   // Forms: driver application (/api/apply) and contact/waitlist (/api/contact)
   document.querySelectorAll('form[data-endpoint]').forEach(function(fm){
     var msg=fm.querySelector('.form-msg'),done=document.getElementById(fm.getAttribute('data-done'));
