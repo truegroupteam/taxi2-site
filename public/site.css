@@ -197,6 +197,16 @@ fieldset{border:0;margin:0 0 16px;padding:0}
 .hp{position:absolute;left:-9999px}
 .form-msg{margin-top:12px;font-size:15px;font-weight:600;min-height:1em}
 .form-msg.bad{color:var(--bad)}
+.pick{display:grid;gap:12px}
+.pick-card{position:relative;display:block;width:100%;text-align:left;font:inherit;cursor:pointer;text-decoration:none;border:2px solid var(--line);background:#fff;color:var(--navy);border-radius:16px;padding:18px 48px 18px 18px}
+.pick-card b{display:block;font-size:21px}
+.pick-card span{display:block;color:var(--gray);margin-top:4px;font-size:15px}
+.pick-card i{position:absolute;right:18px;top:50%;transform:translateY(-50%);font-style:normal;font-size:24px;font-weight:700}
+.pick-card.main{background:var(--navy);border-color:var(--navy);color:#fff}
+.pick-card.main span{color:#DCE0F5}
+.pick-card.main:hover{background:var(--navy-d)}
+.pick-card[aria-expanded="true"]{border-color:var(--navy)}
+.pick + form{margin-top:18px}
 .done{padding:10px 0}
 .done h3{margin:0;font-size:26px;color:var(--navy)}
 .done p{color:var(--gray);margin:8px 0 0}

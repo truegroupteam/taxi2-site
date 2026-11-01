@@ -33,11 +33,11 @@
   <div class="nav-in">
     <a class="brand" href="/" aria-label="Two Taxi — начало"><img class="logo" src="/img/two-mark.webp?v=542295a895" width="320" height="277" alt=""></a>
     <nav class="menu" aria-label="Основна"><a href="/" aria-current="page">Шофьори</a><a href="/patnitsi">Пътници</a><a href="/vaprosi">Въпроси</a><a href="/kontakti">Контакти</a></nav>
-    <a class="nav-cta" href="https://driver.taxi2.bg/kandidat">Кандидатствай</a>
+    <a class="nav-cta" href="#apply">Кандидатствай</a>
     <button class="burger" id="burger" type="button" aria-label="Меню" aria-expanded="false" aria-controls="drawer"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
   </div>
 </header>
-<nav class="drawer" id="drawer" aria-label="Меню"><a href="/" aria-current="page">Шофьори<small>Без ефир до 2027</small></a><a href="/patnitsi">Пътници<small>Приложението идва скоро</small></a><a href="/vaprosi">Въпроси<small></small></a><a href="/kontakti">Контакти<small>office@taxi2.bg</small></a><a class="btn navy block" href="https://driver.taxi2.bg/kandidat">Кандидатствай</a></nav>
+<nav class="drawer" id="drawer" aria-label="Меню"><a href="/" aria-current="page">Шофьори<small>Без ефир до 2027</small></a><a href="/patnitsi">Пътници<small>Приложението идва скоро</small></a><a href="/vaprosi">Въпроси<small></small></a><a href="/kontakti">Контакти<small>office@taxi2.bg</small></a><a class="btn navy block" href="#apply">Кандидатствай</a></nav>
 
 <main id="main">
 <section class="hero" aria-labelledby="t1">
@@ -48,7 +48,7 @@
       <p class="sub">Караш, когато ти се кара. До 1 април 2027 не плащаш нищо: нито месечна такса, нито поръчки, нито облепване на колата.</p>
       <ul class="ticks"><li>Без дневни такси</li><li>Без смени</li><li>Без диспечер</li></ul>
       <div class="actions">
-        <a class="btn white" href="https://driver.taxi2.bg/kandidat">Кандидатствай</a>
+        <a class="btn white" href="#apply">Кандидатствай</a>
         <a class="tlink" href="#prices">Колко струва после</a>
       </div>
       <p class="note">Кандидатстваш от телефона за 5 минути, със снимки на документите.</p>
@@ -141,20 +141,33 @@
     <div class="wrap two">
       <div class="side">
         <div class="head" style="margin-bottom:14px"><h2 id="t6">Кандидатствай</h2></div>
-        <p>Всичко става от телефона:</p>
-        <ol>
-          <li>попълваш данните си и потвърждаваш имейла;</li>
-          <li>снимаш книжката, удостоверението за таксиметров водач и психотеста;</li>
-          <li>проверяваме документите и ти се обаждаме.</li>
-        </ol>
-        <p style="margin-top:14px">Още нямаш документите? Избери „Още нямам документи“ и ще ти кажем откъде да започнеш.</p>
+        <p>Избери как ти е по-удобно. Със „Стани шофьор сега“ започваш веднага: офисът проверява документите и ти се обажда.</p>
         <p style="margin-top:14px">Въпроси? Пиши на <a class="tlink" href="mailto:office@taxi2.bg">office@taxi2.bg</a>.</p>
       </div>
       <div class="form">
-        <div class="done">
-          <h3>Кандидатстване с документи</h3>
-          <p>Отнема около 5 минути. Можеш да спреш и да продължиш по-късно от линка в имейла.</p>
-          <p style="margin-top:16px"><a class="btn navy submit" href="https://driver.taxi2.bg/kandidat">Кандидатствай сега</a></p>
+        <div class="pick" id="applyPick">
+          <a class="pick-card main" href="https://driver.taxi2.bg/kandidat"><b>Стани шофьор сега</b><span>Качваш документите от телефона — около 5 минути</span><i aria-hidden="true">→</i></a>
+          <button type="button" class="pick-card" id="applyCall" aria-expanded="false" aria-controls="applyForm"><b>Свържете се с мен</b><span>Оставяш име и телефон, ние ти се обаждаме</span><i aria-hidden="true">↓</i></button>
+        </div>
+        <form id="applyForm" data-endpoint="/api/apply" data-done="applyDone" novalidate hidden>
+          <label class="field"><span>Име и фамилия</span><input class="input" name="name" autocomplete="name" required maxlength="60"></label>
+          <label class="field"><span>Телефон</span><input class="input" name="phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="088 123 4567" required></label>
+          <fieldset><legend class="legend">Опит</legend>
+            <div class="seg"><label><input type="radio" name="experience" value="none" checked><span>Нов съм</span></label><label><input type="radio" name="experience" value="driver"><span>Карал съм</span></label><label><input type="radio" name="experience" value="taxi"><span>Карам такси сега</span></label></div>
+          </fieldset>
+          <fieldset><legend class="legend">Кола</legend>
+            <div class="seg"><label><input type="radio" name="own_car" value="yes" checked><span>Имам кола</span></label><label><input type="radio" name="own_car" value="no"><span>Нямам кола</span></label></div>
+          </fieldset>
+          <label class="field"><span>Нещо, което да знаем (по желание)</span><textarea class="input" name="message" maxlength="500" placeholder="напр. кога ти е удобно да се обадим"></textarea></label>
+          <label class="hp" aria-hidden="true">Уебсайт<input name="website" tabindex="-1" autocomplete="off"></label>
+          <label class="consent"><input type="checkbox" name="consent" required><span>Съгласен съм Two Taxi да използва името и телефона ми, за да се свърже с мен за работа като шофьор. <a href="/poveritelnost">Поверителност</a></span></label>
+          <button class="btn navy submit" type="submit">Изпрати</button>
+          <div class="form-msg" role="status" aria-live="polite"></div>
+        </form>
+        <div class="done" id="applyDone" hidden>
+          <div class="ok"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></div>
+          <h3>Получихме данните ти</h3>
+          <p>Ще ти се обадим скоро. Ако искаш да започнеш веднага, <a class="tlink" href="https://driver.taxi2.bg/kandidat">качи документите тук</a>.</p>
         </div>
       </div>
     </div>
@@ -190,14 +203,14 @@
       <p style="margin:18px 0 0;max-width:36ch">Такси в Пловдив. За шофьорите: без ефир и без дневни такси.</p>
     </div>
     <div class="cols">
-      <div><h4>Two</h4><ul><li><a href="/">За шофьори</a></li><li><a href="/patnitsi">За пътници</a></li><li><a href="/vaprosi">Въпроси</a></li><li><a href="https://driver.taxi2.bg/kandidat">Кандидатствай</a></li></ul></div>
+      <div><h4>Two</h4><ul><li><a href="/">За шофьори</a></li><li><a href="/patnitsi">За пътници</a></li><li><a href="/vaprosi">Въпроси</a></li><li><a href="#apply">Кандидатствай</a></li></ul></div>
       <div><h4>Връзка</h4><ul><li><a href="mailto:office@taxi2.bg">office@taxi2.bg</a></li><li><a href="/kontakti">Контакти</a></li><li><a href="/poveritelnost">Поверителност</a></li><li><a href="/razrabotchik">За разработчика</a></li></ul></div>
     </div>
   </div>
   <div class="legal"><span>© 2026 Two Taxi. Всички права запазени.</span><span>Пловдив</span></div>
 </footer>
 
-<div class="sticky" id="sticky"><a class="btn navy" href="https://driver.taxi2.bg/kandidat">Кандидатствай</a></div>
+<div class="sticky" id="sticky"><a class="btn navy" href="#apply">Кандидатствай</a></div>
 <script src="/site.js?v=3b3ce80104" defer></script>
 </body>
 </html>

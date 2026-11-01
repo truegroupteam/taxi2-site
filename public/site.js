@@ -20,6 +20,10 @@
     if(form)new IntersectionObserver(function(e){atForm=e[0].isIntersecting;up()},{threshold:.05}).observe(form);
   }
 
+  // „Кандидатствай“: two ways — „Стани шофьор сега“ (documents at driver.taxi2.bg/kandidat) or „Свържете се с мен“ (short form)
+  var call=document.getElementById('applyCall'),af=document.getElementById('applyForm');
+  if(call&&af){call.addEventListener('click',function(){af.hidden=!af.hidden;call.setAttribute('aria-expanded',!af.hidden);if(!af.hidden&&af.name)af.name.focus()})}
+
   // Forms: driver application (/api/apply) and contact/waitlist (/api/contact)
   document.querySelectorAll('form[data-endpoint]').forEach(function(fm){
     var msg=fm.querySelector('.form-msg'),done=document.getElementById(fm.getAttribute('data-done'));
@@ -37,7 +41,7 @@
       var btn=fm.querySelector('button[type=submit]'),label=btn.textContent;btn.disabled=true;btn.textContent='Изпращам…';
       fetch(fm.getAttribute('data-endpoint'),{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)})
         .then(function(r){return r.json().catch(function(){return{}}).then(function(j){if(!r.ok)throw new Error(j.error||'');return j})})
-        .then(function(){fm.hidden=true;if(done){done.hidden=false;done.scrollIntoView({behavior:'smooth',block:'center'})}})
+        .then(function(){fm.hidden=true;var pk=document.getElementById('applyPick');if(pk&&fm.id==='applyForm')pk.hidden=true;if(done){done.hidden=false;done.scrollIntoView({behavior:'smooth',block:'center'})}})
         .catch(function(err){msg.className='form-msg bad';msg.textContent=err.message||'Нещо се обърка. Опитай пак след малко.';btn.disabled=false;btn.textContent=label});
     });
   });
