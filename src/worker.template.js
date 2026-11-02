@@ -122,13 +122,37 @@ async function contact(request, env) {
   if (!d.consent) return json(400, { error: 'Отбележи съгласието.' });
   if (d.kind === 'developer') return developer(env, name, email, cleanText(d.message, 1500));
   const waitlist = d.kind === 'waitlist';
-  if (!waitlist && cleanText(d.message, 1500).length < 3) return json(400, { error: 'Напиши съобщение.' });
+  if (!waitlist && cleanText(d.message, 1500).length < 3) return json(400, { error: d.lang === 'en' ? 'Write a message.' : 'Напиши съобщение.' });
+  if (d.kind === 'lost') return lostMail(env, d, name, phone, email);
   const who = name || phone || email;
   const lines = waitlist
     ? ['Пътник иска да бъде уведомен, когато приложението тръгне', '', 'Име: ' + (name || '-'), 'Телефон: ' + (phone || '-'), 'Имейл: ' + (email || '-'), 'Телефонът му е: ' + (clean(d.platform, 20) || '-'), '', stamp()]
     : ['Ново съобщение от контактната форма на taxi2.bg', '', 'Име: ' + (name || '-'), 'Телефон: ' + (phone || '-'), 'Имейл: ' + (email || '-'), '', cleanText(d.message, 1500), '', stamp()];
   const ok = await sendMail(env, (waitlist ? 'Пътник за приложението: ' : 'Съобщение от сайта: ') + who, lines, email);
   if (!ok) return json(502, { error: 'В момента не можем да изпратим съобщението. Пиши ни на office@taxi2.bg.' });
+  return json(200, { ok: true });
+}
+
+// „Забравени вещи“ (taxi2.bg/zabravena-vesht, /lost): for clients without the app or who lost their phone.
+// In the app the case starts from the ride („Забравих нещо“); this report reaches the office by e-mail.
+async function lostMail(env, d, name, phone, email) {
+  const en = d.lang === 'en';
+  const ok = await sendMail(env, 'Забравена вещ: ' + (name || phone || email), [
+    'Сигнал за забравена вещ от taxi2.bg' + (en ? ' (клиентът пише на английски)' : ''),
+    '',
+    'Име: ' + (name || '-'),
+    'Телефон: ' + (phone || '-'),
+    'Имейл: ' + (email || '-'),
+    'Кога беше курсът: ' + (clean(d.ride_when, 60) || '-'),
+    'Откъде – докъде: ' + (clean(d.ride_route, 120) || '-'),
+    '',
+    'Какво е забравено:',
+    cleanText(d.message, 1500),
+    '',
+    'Ако курсът е намерен, случаят може да се започне от админ панела (Забравени вещи).',
+    stamp()
+  ], email);
+  if (!ok) return json(502, { error: en ? 'We cannot send it right now. Please write to office@taxi2.bg.' : 'В момента не можем да изпратим сигнала. Пиши ни на office@taxi2.bg.' });
   return json(200, { ok: true });
 }
 
@@ -192,7 +216,7 @@ function demoProxy(request, env) {
 // The terms and privacy texts come from the platform (the same texts the apps show), cached for 10 minutes.
 async function legal(url, env, ctx) {
   const api = (env && env.API_ORIGIN) || DEFAULT_API;
-  const q = url.searchParams.get('for') === 'driver' ? '?for=driver' : '';
+  const q = url.searchParams.get('for') === 'driver' ? '?for=driver' : url.searchParams.get('lang') === 'en' ? '?lang=en' : '';
   const cache = caches.default;
   const key = new Request('https://taxi2.bg/api/legal' + q);
   const hit = await cache.match(key);
