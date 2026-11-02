@@ -26,22 +26,22 @@
 
   // Общи условия: the texts come from the platform (/api/legal), the same the apps show
   document.querySelectorAll('[data-legal]').forEach(function(el){
-    var who=el.getAttribute('data-for'),kind=el.getAttribute('data-legal');
+    var who=el.getAttribute('data-for'),kind=el.getAttribute('data-legal'),en=el.getAttribute('data-lang')==='en';
     function esc(t){return t.replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
     function link(t){return t.replace(/(https?:\/\/[^\s<)]+[^\s<).,;])/g,'<a class="tlink" href="$1" rel="noopener">$1</a>').replace(/([\w.+-]+@[\w-]+\.[\w.]+\w)/g,'<a class="tlink" href="mailto:$1">$1</a>')}
-    fetch('/api/legal'+(who==='driver'?'?for=driver':'')).then(function(r){return r.json().then(function(j){if(!r.ok)throw new Error(j.error||'');return j})}).then(function(j){
+    fetch('/api/legal'+(who==='driver'?'?for=driver':en?'?lang=en':'')).then(function(r){return r.json().then(function(j){if(!r.ok)throw new Error(j.error||'');return j})}).then(function(j){
       var lines=String(j[kind]||'').replace(/\r/g,'').split('\n'),html='',i=0;
       lines.forEach(function(l){
         l=l.trim();if(!l)return;
         if(i===0){i++;return} // the title is the page heading
-        if(i===1&&/^Версия/.test(l)){i++;html+='<p class="muted">'+esc(l)+'</p>';return}
+        if(i===1&&/^(Версия|Version)/.test(l)){i++;html+='<p class="muted">'+esc(l)+'</p>';return}
         i++;
         if(/^\d+\s+\S/.test(l)&&!/^\d+\.\d/.test(l)&&l.length<90)html+='<h2>'+esc(l)+'</h2>';
-        else if(/^(Приложение|Раздел)\b/.test(l)&&l.length<120)html+='<h2>'+esc(l)+'</h2>';
+        else if(/^(Приложение|Раздел|Annex|Section)\b/.test(l)&&l.length<120)html+='<h2>'+esc(l)+'</h2>';
         else html+='<p>'+link(esc(l))+'</p>';
       });
-      el.innerHTML=html||'<p class="muted">Текстът се подготвя.</p>';
-    }).catch(function(e){el.innerHTML='<p class="muted">'+esc(e.message||'Текстът не може да се зареди в момента. Опитай пак след малко или пиши на office@taxi2.bg.')+'</p>'});
+      el.innerHTML=html||'<p class="muted">'+(en?'The text is being prepared.':'Текстът се подготвя.')+'</p>';
+    }).catch(function(e){el.innerHTML='<p class="muted">'+esc(en?'The text cannot be loaded right now. Please try again later or write to office@taxi2.bg.':(e.message||'Текстът не може да се зареди в момента. Опитай пак след малко или пиши на office@taxi2.bg.'))+'</p>'});
   });
 
   // A form's answer shown in its „done“ box (taxi2.bg/softuer: the demo sign-in): data-fill = text, data-href = link,
