@@ -167,9 +167,11 @@ async function developer(env, name, email, message) {
   return json(200, { ok: true });
 }
 
-// „Софтуер“ (taxi2.bg/softuer, /software): a company asks for the demo. The request goes by e-mail to the developer
-// (DEV_TO), then the demo server makes a personal sign-in (7 days) that the page shows at once. Only made-up data
-// is in the demo; the company's contact details stay in the e-mail.
+// „Софтуер“ (taxi2.bg/softuer, /software): a company asks for the demo. Nobody gets in at once (David 2026-11-02):
+// the demo server keeps a pending request and the developer (DEV_TO) gets an e-mail with the company's details and
+// a link „Одобри“. Only after approval is a personal sign-in made, and Taxi Labs sends it to the company.
+// The contacts stay in the e-mail; the demo server keeps only the company name and city.
+const DEMO_PUBLIC = 'https://demo.taxi2.bg';
 async function demo(request, env, ctx) {
   const body = await request.text();
   if (body.length > 4000) return json(413, { error: 'Твърде дълго съобщение.' });
@@ -183,24 +185,27 @@ async function demo(request, env, ctx) {
   if (company.length < 2) return json(400, { error: t('Въведете фирмата.', 'Enter your company.') });
   if (phone.replace(/\D/g, '').length < 9 && !/^[^\s@<>",;]+@[^\s@<>",;]+\.[a-z]{2,}$/i.test(email)) return json(400, { error: t('Оставете телефон или имейл.', 'Leave a phone number or an e-mail.') });
   if (!d.consent) return json(400, { error: t('Отбележете съгласието.', 'Tick the consent.') });
-  let acc = null;
+  let token = null;
   try {
-    const r = await fetch(((env && env.DEMO_ORIGIN) || DEFAULT_DEMO) + '/api/public/demo/account', {
+    const r = await fetch(((env && env.DEMO_ORIGIN) || DEFAULT_DEMO) + '/api/public/demo/request', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', 'X-Demo-Client': request.headers.get('CF-Connecting-IP') || '' },
-      body: '{}'
+      body: JSON.stringify({ company, city, lang: en ? 'en' : 'bg' })
     });
-    if (r.ok) acc = await r.json();
+    if (r.ok) token = (await r.json()).token || null;
   } catch (e) {}
+  const link = token ? ((env && env.DEMO_PUBLIC) || DEMO_PUBLIC) + '/demo/approve#' + new URLSearchParams({ t: token, e: email, n: name }) : '';
   const sent = await sendMail(env, 'Taxi Labs — заявка за демо: ' + company + (city ? ', ' + city : ''), [
     'Заявка за демо достъп от taxi2.bg' + (en ? '/software (EN)' : '/softuer'), '',
     'Име: ' + name, 'Фирма: ' + company, 'Град: ' + (city || '-'), 'Коли: ' + (cars || '-'), 'Телефон: ' + (phone || '-'), 'Имейл: ' + (email || '-'), '',
-    acc ? 'Получи демо вход веднага: ' + acc.admin.login + ' (админ), шофьор ' + acc.driver.phone + '. Важи до ' + new Date(acc.until).toLocaleDateString('bg-BG', { timeZone: 'Europe/Sofia' }) + '.'
-        : 'ВНИМАНИЕ: демо сървърът не отговори — изпратете му данни за вход ръчно.',
+    'Никой не влиза в демото без одобрение.',
+    link ? 'Ако фирмата може да стане клиент, одобрете тук (ще получите готово съобщение с личния линк за изпращане):\r\n' + link
+         : 'ВНИМАНИЕ: демо сървърът не отговори — направете входа ръчно, ако одобрявате.',
+    'Ако не одобрявате, не правете нищо.', '',
     stamp()
   ], email, env.DEV_TO || 'damyanov.true@gmail.com');
-  if (!acc && !sent) return json(502, { error: t('В момента не можем да приемем заявката. Опитайте пак след малко.', 'We cannot take the request right now. Please try again shortly.') });
-  return json(200, { ok: true, demo: acc });
+  if (!sent) return json(502, { error: t('В момента не можем да приемем заявката. Опитайте пак след малко.', 'We cannot take the request right now. Please try again shortly.') });
+  return json(200, { ok: true, demo: null });
 }
 
 // demo.taxi2.bg: everything (pages, API, live connection, map tiles) goes to the demo server as it is.

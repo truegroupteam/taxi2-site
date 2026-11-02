@@ -68,11 +68,11 @@
       if(fm.message&&fm.message.required&&(body.message||'').length<3){msg.className='form-msg bad';msg.textContent=T('Напиши съобщение.','Write a message.');fm.message.focus();return}
       if(fm.consent&&!fm.consent.checked){msg.className='form-msg bad';msg.textContent=T('Отбележи съгласието, за да можем да се свържем с теб.','Tick the consent so we can contact you.');return}
       body.consent=true;body.source='taxi2.bg'+location.pathname;
-      var btn=fm.querySelector('button[type=submit]'),label=btn.textContent;btn.disabled=true;btn.textContent=T('Изпращам…','Sending…');
+      var btn=fm.querySelector('button[type=submit]'),label=btn.innerHTML;btn.disabled=true;btn.textContent=T('Изпращам…','Sending…');
       fetch(fm.getAttribute('data-endpoint'),{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)})
         .then(function(r){return r.json().catch(function(){return{}}).then(function(j){if(!r.ok)throw new Error(j.error||'');return j})})
         .then(function(j){fm.hidden=true;var pk=document.getElementById('applyPick');if(pk&&fm.id==='applyForm')pk.hidden=true;if(done){fill(done,j);done.hidden=false;done.scrollIntoView({behavior:'smooth',block:'center'})}})
-        .catch(function(err){msg.className='form-msg bad';msg.textContent=err.message||T('Нещо се обърка. Опитай пак след малко.','Something went wrong. Please try again.');btn.disabled=false;btn.textContent=label});
+        .catch(function(err){msg.className='form-msg bad';msg.textContent=err.message||T('Нещо се обърка. Опитай пак след малко.','Something went wrong. Please try again.');btn.disabled=false;btn.innerHTML=label});
     });
   });
 })();

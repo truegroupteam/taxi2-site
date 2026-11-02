@@ -50,7 +50,7 @@
           <a class="btn white" href="#demo">Try the demo</a>
           <a class="tlink" href="#ceni">Plans and pricing</a>
         </div>
-        <p class="note">The demo is free and ready right after the form.</p>
+        <p class="note">The demo is free. We send a personal link after reviewing the request.</p>
       </div>
       <div class="soft-stage" aria-hidden="true">
         <div class="browser"><i></i><div class="bscreen"><img src="/img/soft/admin-map.webp?v=0000000000" width="1600" height="1000" alt=""></div></div>
@@ -181,9 +181,9 @@
     <div class="wrap two">
       <div class="side">
         <div class="head" style="margin-bottom:14px"><h2 id="t6">Demo access</h2></div>
-        <p>Fill in the form and you get a demo sign-in at once: admin panel, driver app and passenger app.</p>
+        <p>Fill in the form. We review every request and within one working day send you a <b>personal link</b> to go in and test the system live: admin panel, driver app and passenger app.</p>
         <p>The demo is the real system with sample cars in Plovdiv. The cars move and passengers order. You can order yourself and accept the order as a driver.</p>
-        <p class="muted-s">The cars, drivers and passengers in the demo are made up. Everything is wiped every night. The sign-in works for 7 days. The demo apps are in Bulgarian; the passenger app also switches to English.</p>
+        <p class="muted-s">The cars, drivers and passengers in the demo are made up. Everything is wiped every night. The link works for 7 days. The demo apps are in Bulgarian; the passenger app also switches to English.</p>
       </div>
       <div class="form">
         <form data-endpoint="/api/demo" data-done="demoDone" data-need="phone-or-email" novalidate>
@@ -198,7 +198,7 @@
           </fieldset>
           <label class="hp" aria-hidden="true">Website<input name="website" tabindex="-1" autocomplete="off"></label>
           <label class="consent"><input type="checkbox" name="consent" required><span>I agree that my details are used to contact me about the software. <a href="#privacy">How we use your details</a></span></label>
-          <button class="btn navy submit" type="submit">Get demo access</button>
+          <button class="btn live submit" type="submit"><span><i aria-hidden="true"></i>Request the live demo ▸</span><small>Personal link within one working day</small></button>
           <div class="form-msg" role="status" aria-live="polite"></div>
         </form>
         <div class="done" id="demoDone" hidden>
@@ -216,7 +216,7 @@
           </div>
           <div data-if="!demo" hidden>
             <h3>We got your request</h3>
-            <p>We will send you the demo sign-in within one working day.</p>
+            <p>We review it and within one working day send you a personal link to go in and test it live. It is not a video: you do the clicking as the office, the driver and the client.</p>
           </div>
         </div>
         <details class="pnote" id="privacy"><summary>How we use your details</summary>
