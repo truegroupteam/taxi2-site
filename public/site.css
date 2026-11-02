@@ -402,6 +402,7 @@ fieldset{border:0;margin:0 0 16px;padding:0}
 
 /* demo sign-in: the side-by-side page first */
 .together{margin:14px 0 4px}.together .btn{display:inline-flex;max-width:100%;white-space:normal;text-align:center}.together .muted-s{margin:8px 0 0}
+.btn.live{flex-direction:column;align-items:center;gap:2px;background:#E8590C;color:#fff;padding:16px 28px;border-radius:16px;box-shadow:0 8px 24px rgba(232,89,12,.35);animation:livePulse 2.4s ease-in-out infinite}.btn.live span{font-size:20px;font-weight:800}.btn.live small{font-size:13.5px;font-weight:500;opacity:.92}.btn.live:hover{background:#cf4f0a}@keyframes livePulse{0%,100%{box-shadow:0 8px 24px rgba(232,89,12,.35)}50%{box-shadow:0 8px 34px rgba(232,89,12,.6)}}@media (prefers-reduced-motion:reduce){.btn.live{animation:none}}
 /* Управители (Контакти) */
 .mgrs{display:grid;gap:16px}
 .mgr{display:flex;gap:16px;align-items:center;border:1px solid var(--line);border-radius:16px;padding:16px;background:#fff;min-width:0}
