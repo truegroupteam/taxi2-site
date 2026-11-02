@@ -56,7 +56,7 @@ a{color:inherit}
 /* Hero */
 .hero{background:var(--purple);color:#fff;padding:24px 18px 56px}
 .hero-in{max-width:1080px;margin:0 auto}
-.where{font-size:15px;font-weight:600;color:rgba(255,255,255,.8);margin:0}
+.where{font-size:15px;font-weight:600;color:#fff;margin:0}
 .hero h1{margin:12px 0 0;font-size:clamp(42px,11.5vw,84px);line-height:1;font-weight:800;letter-spacing:-.03em}
 .hero h1 span{display:block;color:var(--cream)}
 .sub{margin:18px 0 0;max-width:34ch;font-size:clamp(18px,4.6vw,22px);line-height:1.4;color:rgba(255,255,255,.92)}
@@ -65,7 +65,7 @@ a{color:inherit}
 .ticks li::before{content:"";width:16px;height:16px;flex:none;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23F6E0A2' stroke-width='3.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4 12.5l5 5L20 6.5'/%3E%3C/svg%3E") center/contain no-repeat}
 .hero .actions{display:flex;flex-wrap:wrap;align-items:center;gap:14px 22px;margin-top:28px}
 .hero .actions .tlink{color:#fff;border-color:var(--cream)}
-.note{margin-top:14px;font-size:14px;color:rgba(255,255,255,.75)}
+.note{margin-top:14px;font-size:14px;color:#fff}
 .note a{color:#fff;font-weight:700}
 
 /* Phone and tablet frames with real screenshots of the apps */
@@ -110,7 +110,7 @@ a{color:inherit}
 .phero h1{margin:8px 0 0;font-size:clamp(36px,9vw,60px);line-height:1.02;font-weight:800;letter-spacing:-.03em}
 .phero p{margin:14px 0 0;max-width:44ch;font-size:clamp(17px,4.2vw,20px);color:rgba(255,255,255,.9)}
 .phero p a{color:#fff}
-.crumb{font-size:15px;font-weight:600;color:rgba(255,255,255,.8)}
+.crumb{font-size:15px;font-weight:600;color:#fff}
 
 /* Sections */
 section.block{padding:44px 18px}
@@ -211,7 +211,7 @@ fieldset{border:0;margin:0 0 16px;padding:0}
 .pick-card span{display:block;color:var(--gray);margin-top:4px;font-size:15px}
 .pick-card i{position:absolute;right:18px;top:50%;transform:translateY(-50%);font-style:normal;font-size:24px;font-weight:700}
 .pick-card.main{background:var(--navy);border-color:var(--navy);color:#fff}
-.pick-card.main span{color:#DCE0F5}
+.pick-card.main span{color:#fff}
 .pick-card.main:hover{background:var(--navy-d)}
 .pick-card[aria-expanded="true"]{border-color:var(--navy)}
 .pick + form{margin-top:18px}
@@ -416,7 +416,7 @@ fieldset{border:0;margin:0 0 16px;padding:0}
 .mgr .qb a{display:inline-flex;align-items:center;gap:6px;border-radius:999px;padding:8px 14px;font-weight:700;font-size:15px;color:#fff;text-decoration:none}
 .mgr .qb a svg{width:18px;height:18px}
 .mgr .qb .cl{background:var(--navy)}
-.mgr .qb .wa{background:#1E8E4E}
+.mgr .qb .wa{background:#157A3F}
 .mgr .qb .vb{background:#665CAC}
 @media (min-width:760px){.mgrs{grid-template-columns:1fr 1fr}}
 
