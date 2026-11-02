@@ -50,7 +50,7 @@
           <a class="btn white" href="#demo">Try the demo</a>
           <a class="tlink" href="#ceni">Plans and pricing</a>
         </div>
-        <p class="note">The demo is free and ready right after the form.</p>
+        <p class="note">The demo is free. We send a personal link after reviewing the request.</p>
       </div>
       <div class="soft-stage" aria-hidden="true">
         <div class="browser"><i></i><div class="bscreen"><img src="/img/soft/admin-map.webp?v=0000000000" width="1600" height="1000" alt=""></div></div>
@@ -181,9 +181,9 @@
     <div class="wrap two">
       <div class="side">
         <div class="head" style="margin-bottom:14px"><h2 id="t6">Demo access</h2></div>
-        <p>Fill in the form and you get a demo sign-in at once: admin panel, driver app and passenger app.</p>
+        <p>Fill in the form. We review every request and within one working day send you a <b>personal link</b> to go in and test the system live: admin panel, driver app and passenger app.</p>
         <p>The demo is the real system with sample cars in Plovdiv. The cars move and passengers order. You can order yourself and accept the order as a driver.</p>
-        <p class="muted-s">The cars, drivers and passengers in the demo are made up. Everything is wiped every night. The sign-in works for 7 days. The demo apps are in Bulgarian; the passenger app also switches to English.</p>
+        <p class="muted-s">The cars, drivers and passengers in the demo are made up. Everything is wiped every night. The link works for 7 days. The demo apps are in Bulgarian; the passenger app also switches to English.</p>
       </div>
       <div class="form">
         <form data-endpoint="/api/demo" data-done="demoDone" data-need="phone-or-email" novalidate>
@@ -198,7 +198,7 @@
           </fieldset>
           <label class="hp" aria-hidden="true">Website<input name="website" tabindex="-1" autocomplete="off"></label>
           <label class="consent"><input type="checkbox" name="consent" required><span>I agree that my details are used to contact me about the software. <a href="#privacy">How we use your details</a></span></label>
-          <button class="btn navy submit" type="submit">Get demo access</button>
+          <button class="btn live submit" type="submit"><span><i aria-hidden="true"></i>Request the live demo ▸</span><small>Personal link within one working day</small></button>
           <div class="form-msg" role="status" aria-live="polite"></div>
         </form>
         <div class="done" id="demoDone" hidden>
@@ -206,7 +206,7 @@
           <div data-if="demo">
             <h3>Your demo is ready</h3>
             <p>Save these details. The sign-in works for 7 days.</p>
-            <div class="together"><a class="btn live" data-href="demo.together" target="_blank" rel="noopener"><span>▶ Go in and test it live</span><small>The office, the driver and the client together. You do the clicking.</small></a><p class="muted-s">Best on a computer: the office, the driver and the client in one window. You are signed in automatically and see one order go through all three. The „▶ Виж симулация“ (Play simulation) button there plays a whole ride by itself.</p><p class="muted-s"><b>It is not a video: try it yourself.</b> Click as the client, the driver and the office and watch what happens. The demo is an example set in Plovdiv and shows a company with no dispatchers (or with AI assistants). If you have a dispatch office, that is set up too. For your city it is set up with your own zones, fares and rules.</p><p class="muted-s"><b>The demo shows our Two logo.</b> Your apps carry your own name, logo and colours, and the zones, fares, bonuses and driver rules are set to your own requirements.</p></div>
+            <div class="together"><a class="btn live" data-href="demo.together" target="_blank" rel="noopener"><span><i aria-hidden="true"></i>Go in and test it live ▸</span><small>The office, the driver and the client together. You do the clicking.</small></a><p class="muted-s">Best on a computer: the office, the driver and the client in one window. You are signed in automatically and see one order go through all three. The „▶ Виж симулация“ (Play simulation) button there plays a whole ride by itself.</p><p class="muted-s"><b>It is not a video: try it yourself.</b> Click as the client, the driver and the office and watch what happens. The demo is an example set in Plovdiv and shows a company with no dispatchers (or with AI assistants). If you have a dispatch office, that is set up too. For your city it is set up with your own zones, fares and rules.</p><p class="muted-s"><b>The demo shows our Two logo.</b> Your apps carry your own name, logo and colours, and the zones, fares, bonuses and driver rules are set to your own requirements.</p></div>
             <div class="creds">
               <div><b>Admin panel</b><span>On a computer or tablet</span><a class="tlink" data-href="demo.admin.url" target="_blank" rel="noopener">Open</a><dl><dt>User</dt><dd data-fill="demo.admin.login"></dd><dt>Password</dt><dd data-fill="demo.admin.password"></dd></dl></div>
               <div><b>Driver</b><span>On a phone or tablet</span><a class="tlink" data-href="demo.driver.url" target="_blank" rel="noopener">Open</a><dl><dt>Phone</dt><dd data-fill="demo.driver.phone"></dd><dt>PIN</dt><dd data-fill="demo.driver.pin"></dd></dl></div>
@@ -216,7 +216,7 @@
           </div>
           <div data-if="!demo" hidden>
             <h3>We got your request</h3>
-            <p>We will send you the demo sign-in within one working day.</p>
+            <p>We review it and within one working day send you a personal link to go in and test it live. It is not a video: you do the clicking as the office, the driver and the client.</p>
           </div>
         </div>
         <details class="pnote" id="privacy"><summary>How we use your details</summary>

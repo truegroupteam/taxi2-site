@@ -50,7 +50,7 @@
           <a class="btn white" href="#demo">Пробвайте демото</a>
           <a class="tlink" href="#ceni">Варианти и цени</a>
         </div>
-        <p class="note">Демото е безплатно и е готово веднага след формата.</p>
+        <p class="note">Демото е безплатно. Пращаме личен линк след преглед на заявката.</p>
       </div>
       <div class="soft-stage" aria-hidden="true">
         <div class="browser"><i></i><div class="bscreen"><img src="/img/soft/admin-map.webp?v=0000000000" width="1600" height="1000" alt=""></div></div>
@@ -181,9 +181,9 @@
     <div class="wrap two">
       <div class="side">
         <div class="head" style="margin-bottom:14px"><h2 id="t6">Демо достъп</h2></div>
-        <p>Попълнете формата и веднага получавате вход в демото: админ панел, приложение за шофьор и приложение за клиент.</p>
+        <p>Попълнете формата. Преглеждаме всяка заявка и до един работен ден ви пращаме <b>личен линк</b>, с който влизате и тествате системата на живо: админ панел, приложение за шофьор и приложение за клиент.</p>
         <p>Демото е истинската система с примерни коли в Пловдив. Колите се движат, клиентите поръчват. Може да поръчате сами и да приемете поръчката като шофьор.</p>
-        <p class="muted-s">Колите, шофьорите и клиентите в демото са измислени. Всичко се изтрива всяка нощ. Входът важи 7 дни.</p>
+        <p class="muted-s">Колите, шофьорите и клиентите в демото са измислени. Всичко се изтрива всяка нощ. Линкът важи 7 дни.</p>
       </div>
       <div class="form">
         <form data-endpoint="/api/demo" data-done="demoDone" data-need="phone-or-email" novalidate>
@@ -197,7 +197,7 @@
           </fieldset>
           <label class="hp" aria-hidden="true">Уебсайт<input name="website" tabindex="-1" autocomplete="off"></label>
           <label class="consent"><input type="checkbox" name="consent" required><span>Съгласен съм данните ми да се използват, за да се свържат с мен за софтуера. <a href="#lichni-danni">Как използваме данните</a></span></label>
-          <button class="btn navy submit" type="submit">Вземи демо достъп</button>
+          <button class="btn live submit" type="submit"><span><i aria-hidden="true"></i>Заяви демо на живо ▸</span><small>Личен линк до един работен ден</small></button>
           <div class="form-msg" role="status" aria-live="polite"></div>
         </form>
         <div class="done" id="demoDone" hidden>
@@ -205,7 +205,7 @@
           <div data-if="demo">
             <h3>Демото е готово</h3>
             <p>Запишете си данните. Входът важи 7 дни.</p>
-            <div class="together"><a class="btn live" data-href="demo.together" target="_blank" rel="noopener"><span>▶ Влез и тествай на живо</span><small>Офисът, шофьорът и клиентът заедно. Цъкате вие.</small></a><p class="muted-s">Препоръчваме от компютър: офисът, шофьорът и клиентът в един прозорец, влизате автоматично и гледате как една поръчка минава през трите. Бутонът „▶ Виж симулация“ там пуска цял курс сам.</p><p class="muted-s"><b>Това не е видео: пробвайте сами.</b> Цъкайте като клиент, шофьор и офис и следете какво става. Демото е примерно, за Пловдив, и показва фирма без диспечери (или с АИ асистенти). Ако имате диспечерски пункт, и това се нагласява. За вашия град се настройва по вашите зони, тарифи и правила.</p><p class="muted-s"><b>В демото е нашето лого Two.</b> При вас приложенията са с вашето име, лого и цветове, а зоните, тарифите, бонусите и правилата за шофьорите се настройват по вашите изисквания.</p></div>
+            <div class="together"><a class="btn live" data-href="demo.together" target="_blank" rel="noopener"><span><i aria-hidden="true"></i>Влез и тествай на живо ▸</span><small>Офисът, шофьорът и клиентът заедно. Цъкате вие.</small></a><p class="muted-s">Препоръчваме от компютър: офисът, шофьорът и клиентът в един прозорец, влизате автоматично и гледате как една поръчка минава през трите. Бутонът „▶ Виж симулация“ там пуска цял курс сам.</p><p class="muted-s"><b>Това не е видео: пробвайте сами.</b> Цъкайте като клиент, шофьор и офис и следете какво става. Демото е примерно, за Пловдив, и показва фирма без диспечери (или с АИ асистенти). Ако имате диспечерски пункт, и това се нагласява. За вашия град се настройва по вашите зони, тарифи и правила.</p><p class="muted-s"><b>В демото е нашето лого Two.</b> При вас приложенията са с вашето име, лого и цветове, а зоните, тарифите, бонусите и правилата за шофьорите се настройват по вашите изисквания.</p></div>
             <div class="creds">
               <div><b>Админ панел</b><span>На компютър или таблет</span><a class="tlink" data-href="demo.admin.url" target="_blank" rel="noopener">Отвори</a><dl><dt>Потребител</dt><dd data-fill="demo.admin.login"></dd><dt>Парола</dt><dd data-fill="demo.admin.password"></dd></dl></div>
               <div><b>Шофьор</b><span>На телефон или таблет</span><a class="tlink" data-href="demo.driver.url" target="_blank" rel="noopener">Отвори</a><dl><dt>Телефон</dt><dd data-fill="demo.driver.phone"></dd><dt>ПИН</dt><dd data-fill="demo.driver.pin"></dd></dl></div>
@@ -215,7 +215,7 @@
           </div>
           <div data-if="!demo" hidden>
             <h3>Получихме заявката</h3>
-            <p>Ще ви изпратим данните за вход в демото до един работен ден.</p>
+            <p>Преглеждаме я и до един работен ден ви пращаме личен линк, с който влизате и тествате на живо. Това не е видео: вие цъкате като офис, шофьор и клиент.</p>
           </div>
         </div>
         <details class="pnote" id="lichni-danni"><summary>Как използваме данните ви</summary>
