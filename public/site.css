@@ -113,8 +113,10 @@ a{color:inherit}
 .crumb{font-size:15px;font-weight:600;color:rgba(255,255,255,.8)}
 
 /* Sections */
-section.block{padding:56px 18px}
+section.block{padding:44px 18px}
 section.paper{background:var(--paper)}
+/* two sections with the same background in a row: no double gap between them */
+section.block:not(.paper)+section.block:not(.paper),section.block.paper+section.block.paper{padding-top:0}
 .head{margin:0 0 26px;max-width:720px}
 .head h2{margin:0;font-size:clamp(30px,7vw,46px);color:var(--navy)}
 .head p{margin:10px 0 0;font-size:18px;color:var(--gray)}
@@ -265,7 +267,7 @@ fieldset{border:0;margin:0 0 16px;padding:0}
 @media (max-width:420px){.nav-in{gap:10px}.brand .logo{height:54px}.nav-cta{font-size:14px;padding:9px 13px}}
 @media (max-width:350px){.nav-cta{display:none}}
 @media (min-width:680px){
-  .hero{padding:40px 18px 72px}
+  .hero{padding:40px 18px 56px}
   .hero-in{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:clamp(28px,6vw,90px);align-items:center}
   .stage{margin:0;width:clamp(220px,25vw,270px)}
   .shots{grid-template-columns:repeat(3,minmax(0,1fr));gap:32px}
@@ -286,7 +288,7 @@ fieldset{border:0;margin:0 0 16px;padding:0}
   html{scroll-padding-top:104px}
 }
 @media (min-width:760px){
-  section.block{padding:84px 18px}
+  section.block{padding:64px 18px}
   .phero{padding:40px 18px 60px}
   .points{grid-template-columns:1fr 1fr;column-gap:40px;border-top:0}
   .points li:nth-child(-n+2){border-top:1px solid var(--line)}
