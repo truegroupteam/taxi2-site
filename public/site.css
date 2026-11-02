@@ -332,3 +332,55 @@ fieldset{border:0;margin:0 0 16px;padding:0}
 .social a{width:42px;height:42px;border-radius:50%;display:grid;place-items:center;background:rgba(255,255,255,.12);color:#fff}
 .social a:hover{background:rgba(255,255,255,.22)}
 .social svg{width:20px;height:20px}
+
+/* „Софтуер“ (taxi2.bg/softuer, /software): the platform for other taxi companies */
+.lang{color:#fff;font-weight:700;text-decoration:none;border-bottom:2px solid var(--cream)}
+.soft-stage{position:relative;margin:40px auto 0;width:min(560px,100%);padding:0 0 12% 0}
+.soft-stage .browser{width:88%}
+.soft-stage .iphone{position:absolute;right:0;bottom:0;width:27%}
+.browser{position:relative;width:100%;border-radius:12px;background:#ECEAF2;padding:26px 6px 6px;box-shadow:0 0 0 1.5px #4d4466,0 24px 50px rgba(20,16,40,.28)}
+.browser>i{position:absolute;left:12px;top:10px;width:8px;height:8px;border-radius:50%;background:#E5655B;box-shadow:13px 0 0 #E8B44A,26px 0 0 #5DB760}
+.bscreen{width:100%;aspect-ratio:16/10;border-radius:6px;overflow:hidden;background:#fff}
+.bscreen img{display:block;width:100%;height:100%;object-fit:cover;object-position:top left}
+.app-row{display:grid;gap:22px;align-items:center;padding:30px 0;border-top:1px solid var(--line)}
+.app-row:first-of-type{border-top:0;padding-top:0}
+.app-row h3{margin:6px 0 8px;font-size:clamp(26px,5.5vw,34px);color:var(--navy)}
+.app-row p{margin:0 0 12px;color:var(--gray)}
+.app-pic{margin:0;min-width:0}
+.app-pic.phones{display:grid;grid-template-columns:1fr 1fr;gap:16px;max-width:420px;margin:0 auto;width:100%}
+.tag{display:inline-block;font-size:13px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--purple)}
+.dots{list-style:none;margin:0;padding:0}
+.dots li{position:relative;padding:6px 0 6px 22px;color:var(--ink);overflow-wrap:anywhere}
+.dots li::before{content:"";position:absolute;left:2px;top:15px;width:8px;height:8px;border-radius:50%;background:var(--purple)}
+.timeline{list-style:none;margin:0;padding:0;display:grid;gap:14px}
+.timeline li{border:1px solid var(--line);border-radius:12px;padding:18px;background:#fff}
+.timeline b{display:block;font-size:20px;color:var(--navy)}
+.timeline span{color:var(--gray)}
+.plans{display:grid;gap:16px}
+.plan{background:#fff;border:2px solid var(--line);border-radius:16px;padding:22px;min-width:0}
+.plan h3{margin:0 0 6px;font-size:24px;color:var(--navy)}
+.plan>p{margin:0 0 10px;color:var(--gray)}
+.plan.main{border-color:var(--navy)}
+.plan .price{margin:14px 0 0;padding-top:14px;border-top:1px solid var(--line);font-weight:800;font-size:20px;color:var(--navy)}
+.extra{margin:18px 0 0;color:var(--gray)}
+.extra b{color:var(--navy)}
+.muted-s{font-size:15px;color:var(--gray)}
+.creds{display:grid;gap:12px;margin:16px 0}
+.creds>div{border:1px solid var(--line);border-radius:12px;padding:14px 16px;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:2px 12px;align-items:center}
+.creds b{font-size:18px;color:var(--navy)}
+.creds span{grid-column:1;font-size:14px;color:var(--gray)}
+.creds .tlink{grid-column:2;grid-row:1 / span 2;align-self:center}
+.creds dl{grid-column:1 / -1;margin:8px 0 0;display:grid;grid-template-columns:auto minmax(0,1fr);gap:4px 12px}
+.creds dt{color:var(--gray);font-size:15px}
+.creds dd{margin:0;font-weight:700;font-size:17px;color:var(--ink);overflow-wrap:anywhere;font-variant-numeric:tabular-nums}
+@media (min-width:680px){
+  .soft-hero .hero-in{grid-template-columns:minmax(0,1fr) minmax(0,1.05fr)}
+  .soft-stage{margin:0;width:100%}
+  .app-row{grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);gap:44px;padding:44px 0}
+  .app-row.rev .app-pic{order:2}
+  .plans{grid-template-columns:1fr 1fr}
+  .timeline{grid-template-columns:repeat(4,minmax(0,1fr))}
+}
+@media (min-width:900px) and (max-width:1100px){.menu a{padding:9px 12px}}
+.soft-hero h1{font-size:clamp(36px,9.6vw,60px);overflow-wrap:anywhere}
+@media (min-width:680px){.soft-hero h1{font-size:clamp(38px,5.4vw,64px)}}

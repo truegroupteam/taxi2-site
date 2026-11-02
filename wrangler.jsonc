@@ -7,10 +7,12 @@
   "build": { "command": "python3 build.py" },
   "routes": [
     { "pattern": "taxi2.bg", "custom_domain": true },
-    { "pattern": "www.taxi2.bg", "custom_domain": true }
+    { "pattern": "www.taxi2.bg", "custom_domain": true },
+    // the demo for other taxi companies: this Worker passes it on to the demo server (src/worker.template.js → demoProxy)
+    { "pattern": "demo.taxi2.bg", "custom_domain": true }
   ],
   // E-mails from the site forms (Cloudflare Email Routing).
   "send_email": [{ "name": "APPLY_MAIL" }],
-  // APPLY_TO / DEV_TO / API_ORIGIN are set in the Cloudflare dashboard; keep them on deploy.
+  // APPLY_TO / DEV_TO / API_ORIGIN / DEMO_ORIGIN are set in the Cloudflare dashboard; keep them on deploy.
   "keep_vars": true
 }
