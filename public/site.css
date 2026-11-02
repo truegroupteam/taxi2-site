@@ -412,6 +412,16 @@ fieldset{border:0;margin:0 0 16px;padding:0}
 .mgr .qb{display:flex;flex-wrap:wrap;gap:8px}
 .mgr .qb a{display:inline-flex;align-items:center;gap:6px;border-radius:999px;padding:8px 14px;font-weight:700;font-size:15px;color:#fff;text-decoration:none}
 .mgr .qb a svg{width:18px;height:18px}
+.mgr .qb .cl{background:var(--navy)}
 .mgr .qb .wa{background:#1E8E4E}
 .mgr .qb .vb{background:#665CAC}
 @media (min-width:760px){.mgrs{grid-template-columns:1fr 1fr}}
+
+/* Контакти: every card shows what it does */
+.contact a{position:relative}
+.contact .cta{display:flex;width:fit-content;align-items:center;gap:7px;margin-top:10px;padding:8px 14px;border-radius:999px;background:#EFECF6;color:var(--purple-d);font-style:normal;font-weight:700;font-size:15px;transition:background .15s,color .15s}
+.contact .cta svg{width:17px;height:17px;flex:none}
+.contact .cta.nav{background:var(--navy);color:#fff}
+.contact a:hover .cta{background:var(--purple);color:#fff}
+.contact a:hover .cta.nav{background:var(--navy-d)}
+.contact a:hover b{text-decoration:underline}
