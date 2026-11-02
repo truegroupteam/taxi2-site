@@ -1,0 +1,32 @@
+# Publishes taxi2.bg (Cloudflare Worker taxi2-site) on every push to main.
+# Needs the repository secret CLOUDFLARE_API_TOKEN (Cloudflare → My Profile → API Tokens →
+# template „Edit Cloudflare Workers“, account Truegroupteam). Without it the job is skipped.
+name: Deploy site
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+concurrency: { group: deploy-site, cancel-in-progress: false }
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    env:
+      CF_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+    steps:
+      - name: Token set?
+        id: tok
+        run: if [ -n "$CF_TOKEN" ]; then echo "ok=1" >> "$GITHUB_OUTPUT"; else echo "::warning::CLOUDFLARE_API_TOKEN is not set, nothing published"; fi
+      - uses: actions/checkout@v4
+        if: steps.tok.outputs.ok == '1'
+      - uses: actions/setup-python@v5
+        if: steps.tok.outputs.ok == '1'
+        with: { python-version: '3.12' }
+      - uses: actions/setup-node@v4
+        if: steps.tok.outputs.ok == '1'
+        with: { node-version: '22' }
+      - name: Publish (wrangler runs build.py itself)
+        if: steps.tok.outputs.ok == '1'
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: 0aa53063d57be4412be22cbdd47170ba
+        run: npx --yes wrangler@4 deploy
