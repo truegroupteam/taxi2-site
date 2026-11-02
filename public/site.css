@@ -400,3 +400,18 @@ fieldset{border:0;margin:0 0 16px;padding:0}
 
 /* demo sign-in: the side-by-side page first */
 .together{margin:14px 0 4px}.together .btn{display:inline-flex;max-width:100%;white-space:normal;text-align:center}.together .muted-s{margin:8px 0 0}
+/* Управители (Контакти) */
+.mgrs{display:grid;gap:16px}
+.mgr{display:flex;gap:16px;align-items:center;border:1px solid var(--line);border-radius:16px;padding:16px;background:#fff;min-width:0}
+.mgr img,.mgr .ph{width:76px;height:76px;border-radius:50%;object-fit:cover;flex:none}
+.mgr .ph{display:flex;align-items:center;justify-content:center;background:var(--purple);color:#fff;font-weight:800;font-size:26px}
+.mgr .who{min-width:0;flex:1}
+.mgr b{display:block;font-size:20px;color:var(--navy)}
+.mgr small{display:block;color:var(--gray);font-size:15px}
+.mgr .tel{display:inline-block;font-size:19px;font-weight:700;color:var(--navy);margin:4px 0 8px;white-space:nowrap}
+.mgr .qb{display:flex;flex-wrap:wrap;gap:8px}
+.mgr .qb a{display:inline-flex;align-items:center;gap:6px;border-radius:999px;padding:8px 14px;font-weight:700;font-size:15px;color:#fff;text-decoration:none}
+.mgr .qb a svg{width:18px;height:18px}
+.mgr .qb .wa{background:#1E8E4E}
+.mgr .qb .vb{background:#665CAC}
+@media (min-width:760px){.mgrs{grid-template-columns:1fr 1fr}}
