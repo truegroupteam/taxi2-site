@@ -384,3 +384,7 @@ fieldset{border:0;margin:0 0 16px;padding:0}
 @media (min-width:900px) and (max-width:1100px){.menu a{padding:9px 12px}}
 .soft-hero h1{font-size:clamp(36px,9.6vw,60px);overflow-wrap:anywhere}
 @media (min-width:680px){.soft-hero h1{font-size:clamp(38px,5.4vw,64px)}}
+.pnote{margin-top:16px;border-top:1px solid var(--line);padding-top:12px;font-size:14px;color:var(--gray)}
+.pnote summary{cursor:pointer;font-weight:700;color:var(--navy);font-size:15px}
+.pnote p{margin:8px 0 0;overflow-wrap:anywhere}
+.pnote b{color:var(--ink)}
